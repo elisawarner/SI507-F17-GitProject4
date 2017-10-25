@@ -1,4 +1,5 @@
 # OAuth1 Code to access data from the Twitter API...
+# Version: Python 3.6
 import requests_oauthlib
 import webbrowser
 import json
