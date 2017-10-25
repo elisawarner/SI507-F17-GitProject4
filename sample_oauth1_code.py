@@ -1,4 +1,5 @@
 # OAuth1 Code to access data from the Twitter API...
+# adding comment as requested
 import requests_oauthlib
 import webbrowser
 import json
@@ -146,22 +147,28 @@ oauth = requests_oauthlib.OAuth1Session(client_key,
 ## Of particular interest to us is the json() method of the Response class
 ## Same as getting .text attribute, then json.loads() on the value of the .text attribute, as you've seen before!
 
+filename = 'nested.txt'
 
-# Make a request to the Tweet search endpoint, searching for the phrase 'University of Michigan', looking to get 3 Tweets back
-r = oauth.get("https://api.twitter.com/1.1/search/tweets.json", params = {'q': 'University of Michigan', 'count' : 3})
+try:
+    res = open(filename, 'r').text
+except:
+    # Make a request to the Tweet search endpoint, searching for the phrase 'University of Michigan', looking to get 3 Tweets back
+    r = oauth.get("https://api.twitter.com/1.1/search/tweets.json", params = {'q': 'University of Michigan', 'count' : 3})
 
 
 
-# investigate the data
-print(type(r.json()))
-# print(json.dumps(r.json(), indent=2)) # another way to print it pretty
-res = r.json() # get a Python object in a variable, you now know it's a dictionary
-print(list(res.keys())) # print the dictionary's keys
+    # investigate the data
+    print(type(r.json()))
+    # print(json.dumps(r.json(), indent=2)) # another way to print it pretty
+    res = r.json() # get a Python object in a variable, you now know it's a dictionary
+    print(list(res.keys())) # print the dictionary's keys
 
-# cache the data we got back from the request
-f = open('nested.txt', 'w')
-f.write(json.dumps(res))
-f.close()
+    # cache the data we got back from the request
+    f = open('nested.txt', 'w')
+    f.write(json.dumps(res))
+    f.close()
+
+
 
 # do some investigation with the cached data
 fileref = open("nested.txt","r")
